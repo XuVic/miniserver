@@ -14,6 +14,7 @@ type Gateway interface {
 
 const (
 	Mock = iota
+	CatFact
 )
 
 var Factory *GatewayFactory = NewFactory()
@@ -23,6 +24,7 @@ func NewFactory() *GatewayFactory {
 	chs := make(map[int]chan time.Duration)
 
 	chs[0] = make(chan time.Duration)
+	chs[1] = make(chan time.Duration, 1)
 
 	f := &GatewayFactory{Gateways: gateway, chs: chs}
 
@@ -31,7 +33,8 @@ func NewFactory() *GatewayFactory {
 			select {
 			case <-f.chs[0]:
 				go Wait(f.Gateways[0])
-
+			case <-f.chs[1]:
+				go Wait(f.Gateways[1])
 			}
 		}
 	}()
@@ -60,6 +63,9 @@ func (f *GatewayFactory) Build(g, limit int, wait time.Duration) *LimitGateway {
 		case 0:
 			mock := DefaultMockGateway()
 			f.Gateways[g] = NewLimitGateway(limit, wait, mock, f.chs[g])
+		case 1:
+			catfact := &CatFactGateway{Endpoint: CatEndpoint}
+			f.Gateways[g] = NewLimitGateway(limit, wait, catfact, f.chs[g])
 		default:
 			panic("Error")
 		}

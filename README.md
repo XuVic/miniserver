@@ -76,7 +76,8 @@ You can run a client application to build connections and send requests.
 
 ##### Client Package
 
-* **Client :** Client is a client-side engine that used to build a connection to a TCP server, send requests and receive responses.
+* **Client :** Client is a client-side engine that used to build a connection with a TCP server, send requests and receive responses.
+
 * **Prompter :** Prompter serves as a view object that prompts messages to users and accepts the command from users.
 
 ### Demo

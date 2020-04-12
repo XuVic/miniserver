@@ -55,4 +55,7 @@ func TestStatRequest(t *testing.T) {
 	res := client.Get("/stat")
 	assert.Equal(t, 200, res.Status)
 	assert.NotNil(t, res.Body)
+	if client != nil {
+		client.Close()
+	}
 }
