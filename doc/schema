@@ -1,0 +1,20 @@
+----- Request -----
+GET /
+ID 1234567890
+TIME 2018/03/23 21:03:22
+REQ_END
+
+
+----- Response -----
+GET / Status 200
+CONTENT_TYPE json
+TIME 2018/03/23 21:03:23
+{"Product": {"id": "123", "name": "iPhoneX"}}
+RES_END
+
+----- Response -----
+GET / Status 200
+TIME 2018/03/23 21:03:23
+CONTENT_TYPE text
+Hello world!
+RES_END
