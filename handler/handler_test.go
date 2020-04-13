@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"sync"
 	"testing"
 	"time"
 
@@ -43,10 +44,17 @@ func TestFactHandler(t *testing.T) {
 	assert.Equal(t, "200", res.Status)
 	assert.NotNil(t, res.Body)
 
-	for i := 1; i <= 3; i++ {
-		res.Refresh()
-		mux.Serve(req, res)
+	wg := sync.WaitGroup{}
+
+	wg.Add(30)
+	for i := 1; i <= 30; i++ {
+		go func() {
+			res.Refresh()
+			mux.Serve(req, res)
+			wg.Done()
+		}()
 	}
+	wg.Wait()
 
 	assert.Equal(t, "503", res.Status)
 	assert.NotNil(t, res.Body)

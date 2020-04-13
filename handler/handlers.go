@@ -11,7 +11,7 @@ import (
 
 var mockGateway *gateway.LimitGateway = gateway.Factory.Build(gateway.Mock, 30, time.Second)
 
-var catGateway *gateway.LimitGateway = gateway.Factory.Build(gateway.CatFact, 3, time.Second)
+var catGateway *gateway.LimitGateway = gateway.Factory.Build(gateway.CatFact, 30, time.Second)
 
 func IndexHandler(r *server.Request, res server.ResponseWriter) {
 	res.Write([]byte("Welcome to use MiniServer!"))

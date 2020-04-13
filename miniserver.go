@@ -47,7 +47,7 @@ func commands() {
 				engine := server.NewEngine(c.String("addr"), c.String("port"))
 				mux.HandleFunc("/stat", engine.HandleStat)
 				engine.Handler = mux
-				engine.TimeOut = time.Second * 10
+				engine.TimeOut = time.Second * 30
 				engine.RunTCP()
 			},
 		}, {
