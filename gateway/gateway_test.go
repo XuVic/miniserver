@@ -20,7 +20,8 @@ func TestLimitGateway(t *testing.T) {
 	assert.False(t, ok)
 	_, ok = mockGateway2.Get("/products")
 	assert.False(t, ok)
-	time.Sleep(time.Millisecond * 1)
+
+	time.Sleep(time.Millisecond * 3)
 
 	_, ok = mockGateway2.Get("/products")
 	assert.True(t, ok)
@@ -40,7 +41,7 @@ func TestCatFactGateway(t *testing.T) {
 	res, ok = gateway.Get("/facts")
 	assert.False(t, ok)
 	assert.Equal(t, "", res)
-	time.Sleep(time.Millisecond * 1)
+	time.Sleep(time.Millisecond * 3)
 	res, ok = gateway.Get("/facts")
 	assert.True(t, ok)
 	assert.NotNil(t, res)
